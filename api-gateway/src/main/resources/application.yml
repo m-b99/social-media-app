@@ -1,0 +1,62 @@
+spring:
+  application:
+    name: api-gateway
+
+server:
+  port: 8762
+
+eureka:
+  client:
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+zuul:
+  ignored-services: '*'
+  routes:
+    auth-service:
+      path: /auth/**
+      service-id: auth-service
+      sensitive-headers: Cookie,Set-Cookie
+    media-service:
+      path: /media/**
+      service-id: media-service
+      sensitive-headers: Cookie,Set-Cookie
+    post-service:
+      path: /post/**
+      service-id: post-service
+      sensitive-headers: Cookie,Set-Cookie
+    graph-service:
+      path: /graph/**
+      service-id: graph-service
+      sensitive-headers: Cookie,Set-Cookie
+    feed-service:
+      path: /feed/**
+      service-id: feed-service
+      sensitive-headers: Cookie,Set-Cookie
+#    portfolio-service:
+#        path: /portfolio/**
+#        service-id: portfolio-service
+#        sensitive-headers: Cookie,Set-Cookie
+
+ribbon:
+  ConnectTimeout: 60000
+  ReadTimeout: 600000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 600000
+
+security:
+  basic:
+    enable: false
+
+  jwt:
+    uri: /auth/**
+    header: Authorization
+    prefix: Bearer
+    expiration: 86400
+    secret: JwtSecretKey
