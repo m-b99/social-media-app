@@ -2,7 +2,6 @@ package com.stage.diaaland.config;
 
 import com.datastax.driver.core.policies.ConstantReconnectionPolicy;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
 import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
@@ -10,12 +9,12 @@ import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.core.cql.keyspace.CreateKeyspaceSpecification;
 import org.springframework.data.cassandra.core.cql.keyspace.KeyspaceOption;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
+
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Configuration
-@EnableCassandraRepositories(basePackages = "com.clone.instagram.instafeedservice.repository")
+@EnableCassandraRepositories(basePackages = "com.stage.diaaland.repository")
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Value("${spring.data.cassandra.keyspaceName}")
@@ -66,7 +65,7 @@ public class CassandraConfig extends AbstractCassandraConfiguration {
 
     @Override
     public String[] getEntityBasePackages() {
-        return new String[]{"com.clone.instagram.instafeedservice.entity"};
+        return new String[]{"com.stage.diaaland.entity"};
     }
 
 }

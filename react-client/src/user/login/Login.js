@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import "./login.css";
-import { Form, Input, Button, Icon, Row, Col, notification } from "antd";
-import { Link } from "react-router-dom";
-import { ACCESS_TOKEN } from "../../common/constants";
-import { login } from "../../util/ApiUtil";
+import React, { Component } from 'react';
+import './login.css';
+import { Form, Input, Button, Icon, Row, Col, notification } from 'antd';
+import { Link } from 'react-router-dom';
+import { ACCESS_TOKEN } from '../../common/constants';
+import { login } from '../../util/ApiUtil';
 
 const FormItem = Form.Item;
 
@@ -12,7 +12,7 @@ class Login extends Component {
 
   componentDidMount = () => {
     if (this.props.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
   };
 
@@ -24,7 +24,7 @@ class Login extends Component {
           <Row type="flex" justify="center">
             <Col pan={24}>
               <div className="logo-container">
-                <span>𝓜𝔂 𝓜𝓸𝓶𝓮𝓷𝓽𝓼</span>
+                <span style={{ color: '#1890FF' }}>DiaaLand</span>
               </div>
             </Col>
             <Col pan={24}>
@@ -43,29 +43,29 @@ class Login extends Component {
 class LoginForm extends Component {
   state = {};
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const loginRequest = Object.assign({}, values);
         login(loginRequest)
-          .then(response => {
+          .then((response) => {
             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
             this.props.onLogin();
           })
-          .catch(error => {
+          .catch((error) => {
             if (error.status === 401) {
               notification.error({
-                message: "MyMoments",
+                message: 'DiaaLand',
                 description:
-                  "Username or Password is incorrect. Please try again!"
+                  'Username or Password is incorrect. Please try again!',
               });
             } else {
               notification.error({
-                message: "MyMoments",
+                message: 'DiaaLand',
                 description:
                   error.message ||
-                  "Sorry! Something went wrong. Please try again!"
+                  'Sorry! Something went wrong. Please try again!',
               });
             }
           });
@@ -78,13 +78,13 @@ class LoginForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <FormItem>
-          {getFieldDecorator("username", {
+          {getFieldDecorator('username', {
             rules: [
               {
                 required: true,
-                message: "Please input your username!"
-              }
-            ]
+                message: 'Please input your username!',
+              },
+            ],
           })(
             <Input
               prefix={<Icon type="user" />}
@@ -95,8 +95,8 @@ class LoginForm extends Component {
           )}
         </FormItem>
         <FormItem>
-          {getFieldDecorator("password", {
-            rules: [{ required: true, message: "Please input your Password!" }]
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input
               prefix={<Icon type="lock" />}

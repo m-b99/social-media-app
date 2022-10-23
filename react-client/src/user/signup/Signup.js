@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import "./signup.css";
-import { Form, Input, Button, Row, Col, notification } from "antd";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react';
+import './signup.css';
+import { Form, Input, Button, Row, Col, notification } from 'antd';
+import { Link } from 'react-router-dom';
 import {
   NAME_MIN_LENGTH,
   NAME_MAX_LENGTH,
@@ -9,57 +9,57 @@ import {
   USERNAME_MIN_LENGTH,
   USERNAME_MAX_LENGTH,
   PASSWORD_MIN_LENGTH,
-  PASSWORD_MAX_LENGTH
-} from "../../common/constants";
-import { signup } from "../../util/ApiUtil";
+  PASSWORD_MAX_LENGTH,
+} from '../../common/constants';
+import { signup } from '../../util/ApiUtil';
 
 const FormItem = Form.Item;
 
 class Signup extends Component {
   state = {
     name: {
-      value: ""
+      value: '',
     },
     username: {
-      value: ""
+      value: '',
     },
     email: {
-      value: ""
+      value: '',
     },
     password: {
-      value: ""
-    }
+      value: '',
+    },
   };
 
   componentDidMount = () => {
     if (this.props.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     const signupRequest = {
       name: this.state.name.value,
       email: this.state.email.value,
       username: this.state.username.value,
-      password: this.state.password.value
+      password: this.state.password.value,
     };
     signup(signupRequest)
-      .then(response => {
+      .then((response) => {
         notification.success({
-          message: "MyMoments",
+          message: 'DiaaLand',
           description:
-            "Thank you! You're successfully registered. Please Login to continue!"
+            "Thank you! You're successfully registered. Please Login to continue!",
         });
-        this.props.history.push("/login");
+        this.props.history.push('/login');
       })
-      .catch(error => {
+      .catch((error) => {
         notification.error({
-          message: "MyMoments",
+          message: 'DiaaLand',
           description:
-            error.message || "Sorry! Something went wrong. Please try again!"
+            error.message || 'Sorry! Something went wrong. Please try again!',
         });
       });
   };
@@ -72,17 +72,17 @@ class Signup extends Component {
     this.setState({
       [inputName]: {
         value: inputValue,
-        ...validationFun(inputValue)
-      }
+        ...validationFun(inputValue),
+      },
     });
   }
 
   isFormInvalid() {
     return !(
-      this.state.name.validateStatus === "success" &&
-      this.state.username.validateStatus === "success" &&
-      this.state.email.validateStatus === "success" &&
-      this.state.password.validateStatus === "success"
+      this.state.name.validateStatus === 'success' &&
+      this.state.username.validateStatus === 'success' &&
+      this.state.email.validateStatus === 'success' &&
+      this.state.password.validateStatus === 'success'
     );
   }
 
@@ -93,7 +93,7 @@ class Signup extends Component {
           <Row type="flex" justify="center">
             <Col pan={24}>
               <div className="logo-container">
-                <span>𝓜𝔂 𝓜𝓸𝓶𝓮𝓷𝓽𝓼</span>
+                <span style={{ color: '#1890FF' }}>DiaaLand</span>
               </div>
             </Col>
             <Col pan={24}>
@@ -108,7 +108,7 @@ class Signup extends Component {
                     name="name"
                     placeholder="Name"
                     value={this.state.name.value}
-                    onChange={event =>
+                    onChange={(event) =>
                       this.handleInputChange(event, this.validateName)
                     }
                   />
@@ -123,7 +123,7 @@ class Signup extends Component {
                     name="email"
                     placeholder="Email"
                     value={this.state.email.value}
-                    onChange={event =>
+                    onChange={(event) =>
                       this.handleInputChange(event, this.validateEmail)
                     }
                   />
@@ -138,7 +138,7 @@ class Signup extends Component {
                     name="username"
                     placeholder="Username"
                     value={this.state.username.value}
-                    onChange={event =>
+                    onChange={(event) =>
                       this.handleInputChange(event, this.validateUsername)
                     }
                   />
@@ -154,7 +154,7 @@ class Signup extends Component {
                     type="password"
                     placeholder="Password"
                     value={this.state.password.value}
-                    onChange={event =>
+                    onChange={(event) =>
                       this.handleInputChange(event, this.validatePassword)
                     }
                   />
@@ -181,108 +181,108 @@ class Signup extends Component {
     );
   }
 
-  validateName = name => {
+  validateName = (name) => {
     if (!name) {
       return {
-        validateStatus: "warning",
-        errorMsg: `Please input your name`
+        validateStatus: 'warning',
+        errorMsg: `Please input your name`,
       };
     }
     if (name.length < NAME_MIN_LENGTH) {
       return {
-        validateStatus: "error",
-        errorMsg: `Name is too short (Minimum ${NAME_MIN_LENGTH} characters)`
+        validateStatus: 'error',
+        errorMsg: `Name is too short (Minimum ${NAME_MIN_LENGTH} characters)`,
       };
     }
 
     if (name.length > NAME_MAX_LENGTH) {
       return {
-        validationStatus: "error",
-        errorMsg: `Name is too long (Maximum ${NAME_MAX_LENGTH} characters)`
+        validationStatus: 'error',
+        errorMsg: `Name is too long (Maximum ${NAME_MAX_LENGTH} characters)`,
       };
     }
 
     return {
-      validateStatus: "success",
-      errorMsg: null
+      validateStatus: 'success',
+      errorMsg: null,
     };
   };
 
-  validateEmail = email => {
+  validateEmail = (email) => {
     if (!email) {
       return {
-        validationStatus: "warning",
-        errorMsg: "Please input your email"
+        validationStatus: 'warning',
+        errorMsg: 'Please input your email',
       };
     }
     if (email.length > EMAIL_MAX_LENGTH) {
       return {
-        validationStatus: "error",
-        errorMsg: `Email is too long (Maximum ${EMAIL_MAX_LENGTH} characters)`
+        validationStatus: 'error',
+        errorMsg: `Email is too long (Maximum ${EMAIL_MAX_LENGTH} characters)`,
       };
     }
 
-    const EMAIL_REGEX = RegExp("[^@ ]+@[^@ ]+\\.[^@ ]+");
+    const EMAIL_REGEX = RegExp('[^@ ]+@[^@ ]+\\.[^@ ]+');
     if (!EMAIL_REGEX.test(email)) {
       return {
-        validateStatus: "error",
-        errorMsg: "Email not valid"
+        validateStatus: 'error',
+        errorMsg: 'Email not valid',
       };
     }
 
     return {
-      validateStatus: "success",
-      errorMsg: null
+      validateStatus: 'success',
+      errorMsg: null,
     };
   };
 
-  validateUsername = username => {
+  validateUsername = (username) => {
     if (!username) {
       return {
-        validateStatus: "warning",
-        errorMsg: "Please input a username"
+        validateStatus: 'warning',
+        errorMsg: 'Please input a username',
       };
     }
     if (username.length < USERNAME_MIN_LENGTH) {
       return {
-        validateStatus: "error",
-        errorMsg: `Username is too short (Minimum ${USERNAME_MIN_LENGTH} characters)`
+        validateStatus: 'error',
+        errorMsg: `Username is too short (Minimum ${USERNAME_MIN_LENGTH} characters)`,
       };
     }
 
     if (username.length > USERNAME_MAX_LENGTH) {
       return {
-        validationStatus: "error",
-        errorMsg: `Username is too long (Maximum ${USERNAME_MAX_LENGTH} characters)`
+        validationStatus: 'error',
+        errorMsg: `Username is too long (Maximum ${USERNAME_MAX_LENGTH} characters)`,
       };
     }
     return {
-      validateStatus: "success",
-      errorMsg: null
+      validateStatus: 'success',
+      errorMsg: null,
     };
   };
 
-  validatePassword = password => {
+  validatePassword = (password) => {
     if (!password) {
       return {
-        validateStatus: "warning",
-        errorMsg: `Please input a poassword`
+        validateStatus: 'warning',
+        errorMsg: `Please input a poassword`,
       };
     }
     if (password.length < PASSWORD_MIN_LENGTH) {
       return {
-        validateStatus: "error",
-        errorMsg: `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`
+        validateStatus: 'error',
+        errorMsg: `Password is too short (Minimum ${PASSWORD_MIN_LENGTH} characters needed.)`,
       };
     } else if (password.length > PASSWORD_MAX_LENGTH) {
       return {
-        validationStatus: "error",
-        errorMsg: `Password is too long (Maximum ${PASSWORD_MAX_LENGTH} characters allowed.)`
+        validationStatus: 'error',
+        errorMsg: `Password is too long (Maximum ${PASSWORD_MAX_LENGTH} characters allowed.)`,
       };
     } else {
       return {
-        validateStatus: "success",
-        errorMsg: null
+        validateStatus: 'success',
+        errorMsg: null,
       };
     }
   };

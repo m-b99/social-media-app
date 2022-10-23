@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 
-@FeignClient(serviceId = "INSTA-POST")
+@FeignClient(serviceId = "POST-SERVICE")
 public interface PostServiceClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "/posts/in")

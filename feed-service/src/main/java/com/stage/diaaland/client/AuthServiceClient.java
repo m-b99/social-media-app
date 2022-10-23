@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 
-@FeignClient(serviceId = "INSTA-AUTH")
+@FeignClient(serviceId = "AUTH-SERVICE")
 public interface AuthServiceClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "signin")

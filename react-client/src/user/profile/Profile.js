@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "./profile.css";
+import React, { Component } from 'react';
+import './profile.css';
 import {
   Row,
   Col,
@@ -9,9 +9,9 @@ import {
   Button,
   List,
   Empty,
-  notification
-} from "antd";
-import LoadingIndicator from "../../common/LoadingIndicator";
+  notification,
+} from 'antd';
+import LoadingIndicator from '../../common/LoadingIndicator';
 import {
   getUserProfile,
   getUserPosts,
@@ -19,11 +19,11 @@ import {
   follow,
   isFollowing,
   getfollowers,
-  getfollowing
-} from "../../util/ApiUtil";
-import PostGrid from "../../post/postgrid/PostGrid";
-import FollowModal from "./FollowModal";
-import { ACCESS_TOKEN } from "../../common/constants";
+  getfollowing,
+} from '../../util/ApiUtil';
+import PostGrid from '../../post/postgrid/PostGrid';
+import FollowModal from './FollowModal';
+import { ACCESS_TOKEN } from '../../common/constants';
 
 const TabPane = Tabs.TabPane;
 
@@ -39,12 +39,12 @@ class Profile extends Component {
     posts: [],
     followLoading: false,
     isFollowing: false,
-    followText: "Follow"
+    followText: 'Follow',
   };
 
   componentDidMount = () => {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
-      this.props.history.push("/login");
+      this.props.history.push('/login');
     }
 
     const username = this.props.match.params.username;
@@ -55,7 +55,7 @@ class Profile extends Component {
     }
   };
 
-  componentDidUpdate = prevProps => {
+  componentDidUpdate = (prevProps) => {
     if (this.props.match.params.username !== prevProps.match.params.username) {
       this.handleFollowersCancel();
       this.handleFollowingCancel();
@@ -67,45 +67,45 @@ class Profile extends Component {
     }
   };
 
-  loadUserProfile = username => {
-    console.log("inside load profile");
+  loadUserProfile = (username) => {
+    console.log('inside load profile');
     this.setState({ isLoading: true });
 
     getUserProfile(username)
-      .then(response => {
+      .then((response) => {
         this.setState({ currentUser: response, isLoading: false });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ isLoading: false });
 
         if (error.status === 404) {
           notification.error({
-            message: "MyMoments",
-            description: "user not found"
+            message: 'DiaaLand',
+            description: 'user not found',
           });
         }
       });
   };
 
-  getfollowersAndFollowing = username => {
-    getfollowersAndFollowing(username).then(response =>
+  getfollowersAndFollowing = (username) => {
+    getfollowersAndFollowing(username).then((response) =>
       this.setState({
         followers: response.inDegree,
-        following: response.outDegree
+        following: response.outDegree,
       })
     );
   };
 
   isFollowing = (usernameA, usernameB) => {
-    isFollowing(usernameA, usernameB).then(response => {
+    isFollowing(usernameA, usernameB).then((response) => {
       if (response) {
         this.setState({ isFollowing: true });
       } else {
-        isFollowing(usernameB, usernameA).then(res => {
+        isFollowing(usernameB, usernameA).then((res) => {
           if (res) {
-            this.setState({ isFollowing: false, followText: "Follow Back" });
+            this.setState({ isFollowing: false, followText: 'Follow Back' });
           } else {
-            this.setState({ isFollowing: false, followText: "Follow" });
+            this.setState({ isFollowing: false, followText: 'Follow' });
           }
         });
       }
@@ -114,7 +114,9 @@ class Profile extends Component {
 
   handleGetUserPosts = () => {
     const username = this.props.match.params.username;
-    getUserPosts(username).then(response => this.setState({ posts: response }));
+    getUserPosts(username).then((response) =>
+      this.setState({ posts: response })
+    );
   };
 
   handleFollow = () => {
@@ -122,10 +124,10 @@ class Profile extends Component {
 
     const followRequest = {
       follower: this.props.currentUser,
-      following: this.state.currentUser
+      following: this.state.currentUser,
     };
 
-    follow(followRequest).then(response => {
+    follow(followRequest).then((response) => {
       this.setState({ followLoading: false, isFollowing: true });
       this.getfollowersAndFollowing(this.state.currentUser.username);
     });
@@ -133,7 +135,7 @@ class Profile extends Component {
 
   handleFollowersClick = () => {
     if (this.state.followers > 0) {
-      getfollowers(this.state.currentUser.username).then(response =>
+      getfollowers(this.state.currentUser.username).then((response) =>
         this.setState({ followerList: response, followersModalVisible: true })
       );
     }
@@ -141,7 +143,7 @@ class Profile extends Component {
 
   handleFollowingClick = () => {
     if (this.state.following > 0) {
-      getfollowing(this.state.currentUser.username).then(response =>
+      getfollowing(this.state.currentUser.username).then((response) =>
         this.setState({ followingList: response, followingModalVisible: true })
       );
     }
@@ -155,8 +157,8 @@ class Profile extends Component {
     this.setState({ followingModalVisible: false, followingList: [] });
   };
 
-  handleOnItemClick = username => {
-    this.props.history.push("/users/" + username);
+  handleOnItemClick = (username) => {
+    this.props.history.push('/users/' + username);
   };
 
   render() {
@@ -230,7 +232,7 @@ class Profile extends Component {
                                 </span>
                                 posts
                               </span>
-                            )
+                            ),
                           },
                           {
                             content: (
@@ -244,7 +246,7 @@ class Profile extends Component {
                               </span>
                             ),
                             onClick: this.handleFollowersClick,
-                            className: "pointer"
+                            className: 'pointer',
                           },
                           {
                             content: (
@@ -258,10 +260,10 @@ class Profile extends Component {
                               </span>
                             ),
                             onClick: this.handleFollowingClick,
-                            className: "pointer"
-                          }
+                            className: 'pointer',
+                          },
                         ]}
-                        renderItem={item => (
+                        renderItem={(item) => (
                           <List.Item
                             className={item.className}
                             onClick={item.onClick}
@@ -287,10 +289,10 @@ class Profile extends Component {
             <Tabs
               animated={false}
               tabBarStyle={{
-                textAlign: "center",
-                borderTop: "1px solid #e8e8e8",
+                textAlign: 'center',
+                borderTop: '1px solid #e8e8e8',
                 borderBottom: 0,
-                color: "#999"
+                color: '#999',
               }}
             >
               <TabPane

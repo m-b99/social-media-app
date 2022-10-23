@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "./meprofile.css";
+import React, { Component } from 'react';
+import './meprofile.css';
 import {
   Row,
   Col,
@@ -10,19 +10,19 @@ import {
   List,
   Empty,
   notification,
-  Spin
-} from "antd";
-import ProfileModal from "./ProfileModal";
-import FollowModal from "./FollowModal";
+  Spin,
+} from 'antd';
+import ProfileModal from './ProfileModal';
+import FollowModal from './FollowModal';
 import {
   uploadImage,
   updateProfilePicture,
   getfollowersAndFollowing,
   getfollowers,
-  getfollowing
-} from "../../util/ApiUtil";
-import PostGrid from "../../post/postgrid/PostGrid";
-import { ACCESS_TOKEN } from "../../common/constants";
+  getfollowing,
+} from '../../util/ApiUtil';
+import PostGrid from '../../post/postgrid/PostGrid';
+import { ACCESS_TOKEN } from '../../common/constants';
 
 const TabPane = Tabs.TabPane;
 
@@ -35,22 +35,22 @@ class MeProfile extends Component {
     followingModalVisible: false,
     followers: 0,
     following: 0,
-    currentUser: { ...this.props.currentUser }
+    currentUser: { ...this.props.currentUser },
   };
 
   componentDidMount = () => {
     if (!localStorage.getItem(ACCESS_TOKEN)) {
-      this.props.history.push("/login");
+      this.props.history.push('/login');
     }
 
     this.getfollowersAndFollowing(this.state.currentUser.username);
   };
 
-  getfollowersAndFollowing = username => {
-    getfollowersAndFollowing(username).then(response =>
+  getfollowersAndFollowing = (username) => {
+    getfollowersAndFollowing(username).then((response) =>
       this.setState({
         followers: response.inDegree,
-        following: response.outDegree
+        following: response.outDegree,
       })
     );
   };
@@ -76,43 +76,43 @@ class MeProfile extends Component {
     this.setState({ profilePicModalVisible: false });
   };
 
-  handleUpload = file => {
+  handleUpload = (file) => {
     this.setState({ profilePicUploading: true });
     this.hideProfilePicModal();
 
     const data = new FormData();
-    data.append("image", file);
+    data.append('image', file);
 
     uploadImage(data)
-      .then(response => {
+      .then((response) => {
         updateProfilePicture(response.uri)
-          .then(res => {
+          .then((res) => {
             let currentUser = { ...this.state.currentUser };
             currentUser.profilePicture = response.uri;
 
             this.setState({
-              currentUser: { ...currentUser }
+              currentUser: { ...currentUser },
             });
 
             this.props.onUpdateCurrentUser(currentUser);
 
             notification.success({
-              message: "MyMoments",
-              description: "Profile picture updated"
+              message: 'DiaaLand',
+              description: 'Profile picture updated',
             });
           })
-          .catch(error => {
+          .catch((error) => {
             notification.error({
-              message: "MyMoments",
-              description: "Something went wrong. Please try again!"
+              message: 'DiaaLand',
+              description: 'Something went wrong. Please try again!',
             });
           });
       })
-      .catch(error => {
+      .catch((error) => {
         notification.error({
-          message: "MyMoments",
+          message: 'DiaaLand',
           description:
-            error.message || "Something went wrong. Please try again!"
+            error.message || 'Something went wrong. Please try again!',
         });
       });
 
@@ -121,7 +121,7 @@ class MeProfile extends Component {
 
   handleFollowersClick = () => {
     if (this.state.followers > 0) {
-      getfollowers(this.state.currentUser.username).then(response =>
+      getfollowers(this.state.currentUser.username).then((response) =>
         this.setState({ followerList: response, followersModalVisible: true })
       );
     }
@@ -129,7 +129,7 @@ class MeProfile extends Component {
 
   handleFollowingClick = () => {
     if (this.state.following > 0) {
-      getfollowing(this.state.currentUser.username).then(response =>
+      getfollowing(this.state.currentUser.username).then((response) =>
         this.setState({ followingList: response, followingModalVisible: true })
       );
     }
@@ -143,8 +143,8 @@ class MeProfile extends Component {
     this.setState({ followingModalVisible: false, followingList: [] });
   };
 
-  handleOnItemClick = username => {
-    this.props.history.push("/users/" + username);
+  handleOnItemClick = (username) => {
+    this.props.history.push('/users/' + username);
   };
 
   render() {
@@ -208,7 +208,7 @@ class MeProfile extends Component {
                                 </span>
                                 posts
                               </span>
-                            )
+                            ),
                           },
                           {
                             content: (
@@ -222,7 +222,7 @@ class MeProfile extends Component {
                               </span>
                             ),
                             onClick: this.handleFollowersClick,
-                            className: "pointer"
+                            className: 'pointer',
                           },
                           {
                             content: (
@@ -236,10 +236,10 @@ class MeProfile extends Component {
                               </span>
                             ),
                             onClick: this.handleFollowingClick,
-                            className: "pointer"
-                          }
+                            className: 'pointer',
+                          },
                         ]}
-                        renderItem={item => (
+                        renderItem={(item) => (
                           <List.Item
                             className={item.className}
                             onClick={item.onClick}
@@ -265,10 +265,10 @@ class MeProfile extends Component {
             <Tabs
               animated={false}
               tabBarStyle={{
-                textAlign: "center",
-                borderTop: "1px solid #e8e8e8",
+                textAlign: 'center',
+                borderTop: '1px solid #e8e8e8',
                 borderBottom: 0,
-                color: "#999"
+                color: '#999',
               }}
             >
               <TabPane
@@ -328,13 +328,13 @@ class MeProfile extends Component {
           visible={this.state.settingModalVisible}
           title={null}
           dataSource={[
-            { onClick: null, text: "Change password" },
-            { onClick: null, text: "Nametag" },
-            { onClick: null, text: "Authorized App" },
-            { onClick: null, text: "Notifications" },
-            { onClick: null, text: "Privacy and Security" },
-            { onClick: this.handleLogout, text: "Logout" },
-            { onClick: this.hideSettingModal, text: "Cancel" }
+            { onClick: null, text: 'Change password' },
+            { onClick: null, text: 'Nametag' },
+            { onClick: null, text: 'Authorized App' },
+            { onClick: null, text: 'Notifications' },
+            { onClick: null, text: 'Privacy and Security' },
+            { onClick: this.handleLogout, text: 'Logout' },
+            { onClick: this.hideSettingModal, text: 'Cancel' },
           ]}
         />
         <ProfileModal
@@ -343,11 +343,11 @@ class MeProfile extends Component {
           dataSource={[
             {
               onClick: null,
-              text: "Upload Photo",
+              text: 'Upload Photo',
               isUpload: true,
-              onUpload: this.handleUpload
+              onUpload: this.handleUpload,
             },
-            { onClick: this.hideProfilePicModal, text: "Cancel" }
+            { onClick: this.hideProfilePicModal, text: 'Cancel' },
           ]}
         />
         <FollowModal
