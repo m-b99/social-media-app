@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import "./newpost.css";
+import React, { Component } from 'react';
+import './newpost.css';
 import {
   Button,
   Modal,
@@ -9,9 +9,9 @@ import {
   Spin,
   Input,
   Row,
-  Col
-} from "antd";
-import { uploadImage, createPost } from "../../util/ApiUtil";
+  Col,
+} from 'antd';
+import { uploadImage, createPost } from '../../util/ApiUtil';
 
 const Dragger = Upload.Dragger;
 const { TextArea } = Input;
@@ -21,8 +21,8 @@ class NewPost extends Component {
     visible: false,
     loading: false,
     imageUrl: null,
-    caption: "",
-    uploading: false
+    caption: '',
+    uploading: false,
   };
 
   hideModal = () => {
@@ -30,8 +30,8 @@ class NewPost extends Component {
       loading: false,
       visible: false,
       imageUrl: null,
-      caption: "",
-      uploading: false
+      caption: '',
+      uploading: false,
     });
   };
 
@@ -40,32 +40,32 @@ class NewPost extends Component {
       loading: false,
       visible: true,
       imageUrl: null,
-      caption: "",
-      uploading: false
+      caption: '',
+      uploading: false,
     });
   };
 
-  handleUpload = file => {
+  handleUpload = (file) => {
     this.setState({ uploading: true });
 
     const data = new FormData();
-    data.append("image", file);
+    data.append('image', file);
 
     uploadImage(data)
-      .then(response => {
+      .then((response) => {
         this.setState({ imageUrl: response.uri, uploading: false });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ uploading: false });
         notification.error({
-          message: "MyMoments",
+          message: 'DiaaLand',
           description:
-            error.message || "Something went wrong. Please try again!"
+            error.message || 'Something went wrong. Please try again!',
         });
       });
   };
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     this.setState({ caption: event.target.value });
   };
 
@@ -74,26 +74,26 @@ class NewPost extends Component {
 
     const createPostRequest = {
       imageUrl: this.state.imageUrl,
-      caption: this.state.caption
+      caption: this.state.caption,
     };
 
     createPost(createPostRequest)
-      .then(response => {
+      .then((response) => {
         this.hideModal();
         this.props.onGetUserPosts();
 
         notification.success({
-          message: "MyMoments",
-          description: "New post shared"
+          message: 'DiaaLand',
+          description: 'New post shared',
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({ loading: false });
 
         notification.error({
-          message: "MyMoments",
+          message: 'DiaaLand',
           description:
-            error.message || "Something went wrong. Please try again!"
+            error.message || 'Something went wrong. Please try again!',
         });
       });
   };
@@ -177,7 +177,7 @@ class NewPost extends Component {
               onClick={this.handleShare}
             >
               Share
-            </Button>
+            </Button>,
           ]}
         >
           {modalContent}
